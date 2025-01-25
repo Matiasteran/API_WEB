@@ -740,7 +740,7 @@ app.delete('/users/:id', (req, res) => {
 
 
 //View catalog
-app.get('/products', (req, res) => {
+app.get('/products/catalog', (req, res) => {
   const category = req.query.category; // Se obtiene la categoría del query parameter
 
   if (!category) {
