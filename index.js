@@ -6,7 +6,6 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
-
 /////////// TABLE: Avoices ///////////
 
 // Obtener todas las facturas
@@ -21,7 +20,7 @@ app.get('/avoices', (req, res) => {
 });
 
 // Agregar una nueva factura (POST)
-app.post('/avoices', (req, res) => {
+app.post('/avoices/post', (req, res) => {
   const { id_avoice, id_client, id_sale, issue_date, total_amount, payment_status, notification_sent } = req.body;
 
   const query = `INSERT INTO \`Avoices\` (id_avoice, id_client, id_sale, issue_date, total_amount, payment_status, notification_sent) 
@@ -37,7 +36,7 @@ app.post('/avoices', (req, res) => {
 });
 
 // Actualizar una factura existente (PUT)
-app.put('/avoices/:id', (req, res) => {
+app.put('/avoices/put/:id', (req, res) => {
   const { id } = req.params; // ID de la factura
   const { id_client, id_sale, issue_date, total_amount, payment_status, notification_sent } = req.body;
 
@@ -58,7 +57,7 @@ app.put('/avoices/:id', (req, res) => {
 });
 
 // Eliminar una factura (DELETE)
-app.delete('/avoices/:id', (req, res) => {
+app.delete('/avoices/delete/:id', (req, res) => {
   const { id } = req.params; // ID de la factura
 
   const query = `DELETE FROM \`Avoices\` WHERE id_avoice = ?`;
@@ -92,7 +91,7 @@ app.get('/categories', (req, res) => {
   });
   
   // Agregar una nueva categoría (POST)
-  app.post('/categories', (req, res) => {
+  app.post('/categories/post', (req, res) => {
     const { id_category, name, description, creation_date } = req.body;
   
     const query = `INSERT INTO \`Category\` (id_category, name, description, creation_date) 
@@ -108,7 +107,7 @@ app.get('/categories', (req, res) => {
   });
   
   // Actualizar una categoría existente (PUT)
-  app.put('/categories/:id', (req, res) => {
+  app.put('/categories/put/:id', (req, res) => {
     const { id } = req.params; // ID de la categoría
     const { name, description, creation_date } = req.body;
   
@@ -129,7 +128,7 @@ app.get('/categories', (req, res) => {
   });
   
   // Eliminar una categoría (DELETE)
-  app.delete('/categories/:id', (req, res) => {
+  app.delete('/categories/delete/:id', (req, res) => {
     const { id } = req.params; // ID de la categoría
   
     const query = `DELETE FROM \`Category\` WHERE id_category = ?`;
@@ -163,7 +162,7 @@ app.get('/comentaries', (req, res) => {
 });
 
 // Agregar un nuevo comentario (POST)
-app.post('/comentaries', (req, res) => {
+app.post('/comentaries/post', (req, res) => {
   const { comment, created_at, product_id, rating, user_id } = req.body;
 
   const query = `INSERT INTO \`comentary\` (comment, created_at, product_id, rating, user_id) 
@@ -179,7 +178,7 @@ app.post('/comentaries', (req, res) => {
 });
 
 // Actualizar un comentario existente (PUT)
-app.put('/comentaries/:id', (req, res) => {
+app.put('/comentaries/put/:id', (req, res) => {
   const { id } = req.params; // ID del comentario
   const { comment, created_at, product_id, rating, user_id } = req.body;
 
@@ -200,7 +199,7 @@ app.put('/comentaries/:id', (req, res) => {
 });
 
 // Eliminar un comentario (DELETE)
-app.delete('/comentaries/:id', (req, res) => {
+app.delete('/comentaries/delete/:id', (req, res) => {
   const { id } = req.params; // ID del comentario
 
   const query = `DELETE FROM \`comentary\` WHERE id = ?`;
@@ -235,7 +234,7 @@ app.get('/details_sales', (req, res) => {
 });
 
 // Agregar un nuevo detalle de venta (POST)
-app.post('/details_sales', (req, res) => {
+app.post('/details_sales/post', (req, res) => {
   const { id_sale, id_product, id_avoice, amount, unit_price, subtotal } = req.body;
 
   const query = `INSERT INTO \`Details_Sales\` (id_sale, id_product, id_avoice, amount, unit_price, subtotal) 
@@ -252,7 +251,7 @@ app.post('/details_sales', (req, res) => {
 
 
 // Actualizar un detalle de venta existente (PUT)
-app.put('/details_sales/:id_sale/:id_product', (req, res) => {
+app.put('/details_sales/put/:id_sale/:id_product', (req, res) => {
   const { id_sale, id_product } = req.params; // IDs del detalle de venta
   const { id_avoice, amount, unit_price, subtotal } = req.body;
 
@@ -273,7 +272,7 @@ app.put('/details_sales/:id_sale/:id_product', (req, res) => {
 });
 
 // Eliminar un detalle de venta (DELETE)
-app.delete('/details_sales/:id_sale/:id_product', (req, res) => {
+app.delete('/details_sales/delete/:id_sale/:id_product', (req, res) => {
   const { id_sale, id_product } = req.params; // IDs del detalle de venta
 
   const query = `DELETE FROM \`Details_Sales\` WHERE id_sale = ? AND id_product = ?`;
@@ -307,7 +306,7 @@ app.get('/inventory', (req, res) => {
 });
 
 // Agregar un nuevo registro al inventario (POST)
-app.post('/inventory', (req, res) => {
+app.post('/inventory/post', (req, res) => {
   const { id_inventory, id_product, id_user, date } = req.body;
 
   const query = `INSERT INTO \`Inventory\` (id_inventory, id_product, id_user, date) 
@@ -323,7 +322,7 @@ app.post('/inventory', (req, res) => {
 });
 
 // Actualizar un registro del inventario existente (PUT)
-app.put('/inventory/:id', (req, res) => {
+app.put('/inventory/put/:id', (req, res) => {
   const { id } = req.params; // ID del registro del inventario
   const { id_product, id_user, date } = req.body;
 
@@ -344,7 +343,7 @@ app.put('/inventory/:id', (req, res) => {
 });
 
 // Eliminar un registro del inventario (DELETE)
-app.delete('/inventory/:id', (req, res) => {
+app.delete('/inventory/delete/:id', (req, res) => {
   const { id } = req.params; // ID del registro del inventario
 
   const query = `DELETE FROM \`Inventory\` WHERE id_inventory = ?`;
@@ -376,7 +375,7 @@ app.get('/payments', (req, res) => {
 });
 
 // Agregar un nuevo pago (POST)
-app.post('/payments', (req, res) => {
+app.post('/payments/post', (req, res) => {
   const { id_payment, id_avoice, amount, payment_date, payment_method } = req.body;
 
   const query = `INSERT INTO \`Payment\` (id_payment, id_avoice, amount, payment_date, payment_method) 
@@ -392,7 +391,7 @@ app.post('/payments', (req, res) => {
 });
 
 // Actualizar un pago existente (PUT)
-app.put('/payments/:id', (req, res) => {
+app.put('/payments/put/:id', (req, res) => {
   const { id } = req.params; // ID del pago
   const { id_avoice, amount, payment_date, payment_method } = req.body;
 
@@ -413,7 +412,7 @@ app.put('/payments/:id', (req, res) => {
 });
 
 // Eliminar un pago (DELETE)
-app.delete('/payments/:id', (req, res) => {
+app.delete('/payments/delete/:id', (req, res) => {
   const { id } = req.params; // ID del pago
 
   const query = `DELETE FROM \`Payment\` WHERE id_payment = ?`;
@@ -445,7 +444,7 @@ app.get('/products', (req, res) => {
 });
 
 // Agregar un nuevo producto (POST)
-app.post('/products', (req, res) => {
+app.post('/products/post', (req, res) => {
   const { id, name, category, description, images, inventory, price, reservable, status, weight, weight_unit } = req.body;
 
   const query = `INSERT INTO \`Products\` (id, name, category, description, images, inventory, price, reservable, status, weight, weight_unit) 
@@ -465,7 +464,7 @@ app.post('/products', (req, res) => {
 });
 
 // Actualizar un producto existente (PUT)
-app.put('/products/:id', (req, res) => {
+app.put('/products/put/:id', (req, res) => {
   const { id } = req.params; // ID del producto
   const { name, category, description, images, inventory, price, reservable, status, weight, weight_unit } = req.body;
 
@@ -490,7 +489,7 @@ app.put('/products/:id', (req, res) => {
 });
 
 // Eliminar un producto (DELETE)
-app.delete('/products/:id', (req, res) => {
+app.delete('/products/delete/:id', (req, res) => {
   const { id } = req.params; // ID del producto
 
   const query = `DELETE FROM \`Products\` WHERE id = ?`;
@@ -522,7 +521,7 @@ app.get('/roles', (req, res) => {
 });
 
 // Agregar un nuevo rol (POST)
-app.post('/roles', (req, res) => {
+app.post('/roles/post', (req, res) => {
   const { id_role, name_role, description, access } = req.body;
 
   const query = `INSERT INTO \`Role\` (id_role, name_role, description, access) 
@@ -538,7 +537,7 @@ app.post('/roles', (req, res) => {
 });
 
 // Actualizar un rol existente (PUT)
-app.put('/roles/:id', (req, res) => {
+app.put('/roles/put/:id', (req, res) => {
   const { id } = req.params; // ID del rol
   const { name_role, description, access } = req.body;
 
@@ -559,7 +558,7 @@ app.put('/roles/:id', (req, res) => {
 });
 
 // Eliminar un rol (DELETE)
-app.delete('/roles/:id', (req, res) => {
+app.delete('/roles/delete/:id', (req, res) => {
   const { id } = req.params; // ID del rol
 
   const query = `DELETE FROM \`Role\` WHERE id_role = ?`;
@@ -592,7 +591,7 @@ app.get('/sales', (req, res) => {
 });
 
 // Agregar una nueva venta (POST)
-app.post('/sales', (req, res) => {
+app.post('/sales/post', (req, res) => {
   const { id_sales, id_client, sale_date, total_amount } = req.body;
 
   const query = `INSERT INTO \`Sales\` (id_sales, id_client, sale_date, total_amount) 
@@ -608,7 +607,7 @@ app.post('/sales', (req, res) => {
 });
 
 // Actualizar una venta existente (PUT)
-app.put('/sales/:id', (req, res) => {
+app.put('/sales/put/:id', (req, res) => {
   const { id } = req.params; // ID de la venta
   const { id_client, sale_date, total_amount } = req.body;
 
@@ -629,7 +628,7 @@ app.put('/sales/:id', (req, res) => {
 });
 
 // Eliminar una venta (DELETE)
-app.delete('/sales/:id', (req, res) => {
+app.delete('/sales/delete/:id', (req, res) => {
   const { id } = req.params; // ID de la venta
 
   const query = `DELETE FROM \`Sales\` WHERE id_sales = ?`;
@@ -661,7 +660,7 @@ app.get('/users', (req, res) => {
 });
 
 // Agregar un nuevo usuario (POST)
-app.post('/users', async (req, res) => {
+app.post('/users/post', async (req, res) => {
   const { first_name, last_name, email, username, password, birth_date, role } = req.body;
 
   // Encriptar la contraseña antes de guardarla
@@ -685,7 +684,7 @@ app.post('/users', async (req, res) => {
 });
 
 // Actualizar un usuario existente (PUT)
-app.put('/users/:id', async (req, res) => {
+app.put('/users/put/:id', async (req, res) => {
   const { id } = req.params;
   const { first_name, last_name, email, username, password, birth_date, role } = req.body;
 
@@ -720,7 +719,7 @@ app.put('/users/:id', async (req, res) => {
 });
 
 // Eliminar un usuario (DELETE)
-app.delete('/users/:id', (req, res) => {
+app.delete('/users/delete/:id', (req, res) => {
   const { id } = req.params;
 
   const query = `DELETE FROM \`users\` WHERE id = ?`;
@@ -757,7 +756,6 @@ app.get('/products/catalog', (req, res) => {
     res.json(results); // Devuelve los productos filtrados como JSON
   });
 });
-
 
 
 //Sum of sales
